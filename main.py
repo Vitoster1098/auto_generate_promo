@@ -6,9 +6,38 @@ from selenium.webdriver.common.keys import Keys
 import time
 
 
+def checkSettings():
+    with open("userdata.py", "a") as file:
+        contents = file.read()
+        if not "login = " in contents:
+            file.write("login = 'your_login'")
+            return False
+        if not "password = " in contents:
+            file.write("password = 'your_password'")
+            return False
+        if not "amount_keys = " in contents:
+            file.write("amount_keys = 100")
+            return False
+    return True
+
+def inputData():
+    with open("userdata.py", "a") as file:
+        contents = file.read()
+        if not "login = 'your_login'" in contents:
+            print("Введите свой логин")
+            return False
+        if not "password = 'your_password'" in contents:
+            print("Введите свой пароль")
+            return False
+    return True
+
 def main():
     driver = webdriver.Chrome()
     driver.get('https://funline.pw/lk/')
+    if not checkSettings():
+        return
+    if not inputData():
+        return
     logIn(driver)
     time.sleep(3)
     pasteKeys(driver)
@@ -52,12 +81,15 @@ def pasteKeys(self):
         self.find_element_by_class_name("btn-inverse").click()
         time.sleep(0.5)
         try:
-            if self.find_element_by_class_name("alert-error").text.replace("\n", "") == "×Ошибка! Промо код не найден, проверьте правильность ввода":
+            if self.find_element_by_class_name("alert-error").text.replace("\n",
+                                                                           "") == "×Ошибка! Промо код не найден, проверьте правильность ввода":
                 passedKeys = passedKeys - 1
         except NoSuchElementException:
             pass
 
     print("Успешных кодов: ", passedKeys)
+    exit(0)
+
 
 if __name__ == '__main__':
     main()
