@@ -10,6 +10,7 @@
 Вставьте ваш логин и пароль от личного кабинета (https://funline.pw/lk/)
 
 #Возможная ошибка с версией chromebrowser.exe
+Прикреплённый chromebrowser.exe 95 версии.
 Если при запуске main вы увидели ошибку вроде:
 SessionNotCreatedException: Message: session not created: This version of ChromeDriver only supports Chrome version ваша_версия.
 То не пугайтеся, вам просто надо заменить chromebrowser.exe на вашей версии.
